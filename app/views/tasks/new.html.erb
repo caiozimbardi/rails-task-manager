@@ -5,5 +5,12 @@
 <%= f.text_field :title %>
 <%= f.label :details %>
 <%= f.text_field :details %>
+ <% unless f.object.new_record? %>
+    <div class="checkbox">
+      <label>
+        <%= f.check_box :completed %> Completed
+      </label>
+    </div>
+  <% end %>
 <%= f.submit %>
 <% end %>

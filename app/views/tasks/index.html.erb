@@ -1,16 +1,34 @@
-<h1>Tasks</h1>
 
-<div>
-<ol>
-<% @tasks.each do|task| %>
-  <li><input type="checkbox" id="tasks" name="tasks" unchecked>
-  <label for="tasks"><%= link_to task.title, task_path(task) %></label>
-  <%= link_to "🗑️", task_path(task), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-<% end %>
-</ol>
+
+<div class="container">
+  <div class="row my-4">
+    <div class="col-md-8">
+      <h1>My tasks</h1>
+    </div>
+    <div class="col-md-4">
+      <%= link_to "+ Create new taks", new_task_path %>
+    </div>
+  </div>
 </div>
 
+<hr class="container-fluid">
 
-<hr>
-
-<%= link_to "+ Create new taks", new_task_path %>
+<div class="container">
+  <div class="row my-4">
+    <div class="col-md-8">
+      <ol>
+        <% @tasks.each do|task| %>
+        <li>
+          <% if task.completed? %>
+            <i class="fa-solid fa-square-check"></i>
+          <% else %>
+            <i class="fa-regular fa-square"></i>
+          <% end %>
+        <%= link_to task.title, task_path(task) %>
+        <%= link_to task_path(task.id), data: {turbo_method: :delete, turbo_confirm: "Delete #{task.title}?"} do %>
+          <i class="fa-regular fa-trash-can"></i>
+        <% end %>
+        </li>
+        <% end %>
+      </ol>
+</div>
